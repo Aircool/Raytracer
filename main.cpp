@@ -1,26 +1,35 @@
 #include "SDL2/SDL.h"
 
 #include "Constants.h"
+#include "VectorMath.h"
+
+#include "RayTracer.h"
 
 SDL_Window* window;
 SDL_Renderer* renderer;
+
+RayTracer* RT;
 
 void render(){
 	
 	for(int y = 0; y < HEIGHT; ++y){
 		for(int x = 0; x < WIDTH; ++x){
 			
-			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+			Vec3 color = RT->rayTrace(x, y);
+			
+			SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], 255);
 			SDL_RenderDrawPoint(renderer, x, y);
 		}
 		
-		SDL_RenderPresent(renderer);
+		if(y % 10 == 9) SDL_RenderPresent(renderer);
 	}
 }
 
 int main(int argc, char* argv[]){
 	
 	SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer);
+	
+	RT = new RayTracer();
 	render();
 	
 	SDL_Event event;
