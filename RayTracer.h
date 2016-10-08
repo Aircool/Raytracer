@@ -3,10 +3,11 @@
 #include <iostream>
 #include <vector>
 
-#include "Camera.h"
-#include "Surface.h"
-#include "Light.h"
-#include "Intersection.h"
+#include "rendering/Camera.h"
+#include "rendering/Light.h"
+#include "rendering/Intersection.h"
+
+#include "surfaces/Surface.h"
 
 #include "Constants.h"
 #include "VectorMath.h"

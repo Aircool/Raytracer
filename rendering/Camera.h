@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Constants.h"
-#include "VectorMath.h"
+#include "../Constants.h"
+#include "../VectorMath.h"
 
 class Camera {
 

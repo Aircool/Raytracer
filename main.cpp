@@ -2,7 +2,6 @@
 
 #include "Constants.h"
 #include "VectorMath.h"
-
 #include "RayTracer.h"
 
 SDL_Window* window;

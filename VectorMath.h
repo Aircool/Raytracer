@@ -8,6 +8,7 @@
 	
 	Norm functions have been implemented.
 	Dot product and Cross product have been implemented.	
+	Vector reflection function is also implemented, requires a normal to reflect over.
 */
 
 //	A Ray class has been implemented at the bottom that is just a class containing two Vec3s and a pointAt function.
