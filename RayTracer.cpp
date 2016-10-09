@@ -20,7 +20,10 @@ RayTracer::RayTracer(){
 	surfaces.push_back(new Triangle(Vec3(-200, -200, 10), Vec3(200, 200, 10), Vec3(-200, 200, 10), Vec3(255, 255, 0)));
 	surfaces.push_back(new Triangle(Vec3(200, -200, 10), Vec3(200, 200, 10), Vec3(-200, -200, 10), Vec3(255, 255, 0)));
 	
-	lights.push_back(new Light(Vec3(-0.5, -0.5, -30), Vec3(255, 255, 255), 1.0));
+	lights.push_back(new Light(Vec3(-0.525, -0.025, -20), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(+0.525, -0.025, -20), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(-0.525, +0.025, -20), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(+0.525, +0.025, -20), Vec3(255, 255, 255), 0.25));
 }
 
 Vec3 RayTracer::rayTrace(int x, int y){
