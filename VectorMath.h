@@ -132,6 +132,7 @@ private:
 };
 
 Vec3 operator*(float scalar, Vec3 V);
+Vec3 jitter(float length);
 
 class Ray3 {
 
