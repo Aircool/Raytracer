@@ -1,4 +1,5 @@
 #include "RayTracer.h"
+#include <iostream>
 
 RayTracer::RayTracer(){
 	
@@ -27,15 +28,23 @@ RayTracer::RayTracer(){
 }
 
 Vec3 RayTracer::rayTrace(int x, int y){
+	
 	Vec3 color;
 	
-	for(double i = -ANTI_ALIAS_X + 1; i < ANTI_ALIAS_X; i += 1/ANTI_ALIAS_X){
-		for(double j = -ANTI_ALIAS_X + 1; j < ANTI_ALIAS_X; j += 1/ANTI_ALIAS_X){
-			Vec3 jitterVal = jitter(1.0/ANTI_ALIAS_X);
-			Ray3 ray = camera->castRay(x + i + jitterVal[0], y + j + jitterVal[1]);
+	for(float i = -ANTI_ALIAS_X + 1.0f; i < ANTI_ALIAS_X; i++){
+		for(float j = -ANTI_ALIAS_X + 1.0f; j < ANTI_ALIAS_X; j++){
+			
+			Vec3 jitterVal = jitter(1.0f/ANTI_ALIAS_X);
+			float jitterX = jitterVal[0] + i / (ANTI_ALIAS_X * ANTI_ALIAS_X);
+			float jitterY = jitterVal[1] + j / (ANTI_ALIAS_X * ANTI_ALIAS_X);
+			
+			Ray3 ray = camera->castRay(x + jitterX, y + j + jitterY);
 			color += rayTrace(ray)/(ANTI_ALIAS_X * ANTI_ALIAS_X);
 		}
 	}
+	
+	std::cout << "DONE!" << std::endl;
+	
 	return color;
 }
 
