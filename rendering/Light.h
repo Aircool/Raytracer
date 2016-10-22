@@ -13,9 +13,8 @@ public:
 	Light(Vec3 position, Vec3 color, float intensity) : position(position), color(color), intensity(intensity) {}
 	Light(Vec3 position, Vec3 direction, Vec3 color, float intensity) : position(position), direction(direction), color(color), intensity(intensity) {
 		
-		
 		Vec3 up(0.0f, 1.0f, 0.0);
-		if(direction[0] == up[0] direction[1] == up[1] && direction[2] == up[2]) up = Vec3(0, 0, -1.0f);
+		if(direction[0] == up[0] && direction[1] == up[1] && direction[2] == up[2]) up = Vec3(0, 0, -1.0f);
 		
 		Vec3 ux = up.cross(direction).normalized();
 		Vec3 uz = direction;
@@ -28,6 +27,11 @@ public:
 	Vec3 calculateLighting(std::vector<Surface*>* S, Ray3 R, Intersection I){
 		
 		Vec3 L = position - I.I;
+		if(JITTERED_LIGHTING){
+			
+			Vec3 jitterVal = jitter(1.0f);
+			L = position + (light_x * jitterVal[0]) + (light_y * jitterVal[1]) - I.I; 
+		}
 		
 		float MAX_DIST = (L - I.I).norm();
 		L.normalize();
@@ -58,8 +62,6 @@ private:
 
 		return false;
 	}
-	
-
 	
 	Vec3 position;
 	Vec3 direction;

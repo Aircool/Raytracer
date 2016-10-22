@@ -11,7 +11,7 @@ public:
 	Camera(Vec3 position, Vec3 direction) : position(position), direction(direction) {
 		
 		Vec3 up(0.0f, 1.0f, 0.0);
-		if(direction[0] == up[0] direction[1] == up[1] && direction[2] == up[2]) up = Vec3(0, 0, -1.0f);
+		if(direction[0] == up[0] && direction[1] == up[1] && direction[2] == up[2]) up = Vec3(0, 0, -1.0f);
 		
 		Vec3 ux = up.cross(direction).normalized();
 		Vec3 uz = direction;

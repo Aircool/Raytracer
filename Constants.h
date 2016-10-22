@@ -4,8 +4,7 @@ const int WIDTH = 1280;
 const int HEIGHT = 720;
 
 // RayTracing Options
-const bool JITTER_AA = true;
-const bool JITTER_LIGHTING = true;
+const bool JITTERED_LIGHTING = true;
 
 // Camera Constants
 const float FOCAL_LENGTH = 1000.0f;
