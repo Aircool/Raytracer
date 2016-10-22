@@ -11,6 +11,19 @@ class Light {
 public:
 
 	Light(Vec3 position, Vec3 color, float intensity) : position(position), color(color), intensity(intensity) {}
+	Light(Vec3 position, Vec3 direction, Vec3 color, float intensity) : position(position), direction(direction), color(color), intensity(intensity) {
+		
+		
+		Vec3 up(0.0f, 1.0f, 0.0);
+		if(direction[0] == up[0] direction[1] == up[1] && direction[2] == up[2]) up = Vec3(0, 0, -1.0f);
+		
+		Vec3 ux = up.cross(direction).normalized();
+		Vec3 uz = direction;
+		Vec3 uy = uz.cross(ux);
+		
+		light_x = ux;
+		light_y = uy;
+	}
 
 	Vec3 calculateLighting(std::vector<Surface*>* S, Ray3 R, Intersection I){
 		
@@ -49,6 +62,11 @@ private:
 
 	
 	Vec3 position;
+	Vec3 direction;
 	Vec3 color;
+	
+	Vec3 light_x;
+	Vec3 light_y;
+	
 	float intensity;
 };
