@@ -21,7 +21,7 @@ public:
 		camera_y = uy;
 	}
 	
-	Ray3 castRay(int x, int y){
+	Ray3 castRay(float x, float y){
 		
 		// Ranges from -0.5 to 0.5, to determine how far the current pixel is from the center in each direction.
 		float p_x = (x + 0.5f) - 0.5f * WIDTH;
