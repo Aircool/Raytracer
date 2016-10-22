@@ -8,7 +8,10 @@ const bool JITTER = true;
 
 // Camera Constants
 const float FOCAL_LENGTH = 1000.0f;
+<<<<<<< Updated upstream
 const int ANTI_ALIAS_X = 2;
+=======
+>>>>>>> Stashed changes
 
 // Lighting Coefficients
 const float AMBIENT_COEFF = 0.5f;

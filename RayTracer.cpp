@@ -2,7 +2,7 @@
 
 RayTracer::RayTracer(){
 	
-	Vec3 cam_pos = Vec3(0.0f, 0.0f, -70.0f);
+	Vec3 cam_pos = Vec3(0.0f, 0.0f, -50.0f);
 	Vec3 cam_dir = Vec3(0.0f, 0.0f, 1.0f).normalized();
 	camera = new Camera(cam_pos, cam_dir);
 	
@@ -27,9 +27,18 @@ RayTracer::RayTracer(){
 }
 
 Vec3 RayTracer::rayTrace(int x, int y){
+	Vec3 color;
+	Ray3 ray;
 	
-	Ray3 ray = camera->castRay(x, y);
-	return rayTrace(ray);
+	for(int i < ANTI_ALIAS_X, ++i){
+		for(int j < ANTI_ALIAS_X, ++j){
+			jitterX = camera->getRelativeX() * (-0.5 + i + jitter(0.5));
+			jitterY = camera->getRelativeY() * (-0.5 + j + jitter(0.5));
+			ray = camera->castRay(x + jitterX, y + jitterY);
+			color += rayTrace(ray)/(ANTI_ALIAS_X * ANTI_ALIAS_X);
+		}
+	}
+	return color;
 }
 
 Vec3 RayTracer::rayTrace(Ray3 ray){
