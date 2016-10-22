@@ -30,10 +30,10 @@ Vec3 RayTracer::rayTrace(int x, int y){
 	Vec3 color;
 	Ray3 ray;
 	
-	for(int i < ANTI_ALIAS_X, ++i){
-		for(int j < ANTI_ALIAS_X, ++j){
-			jitterX = camera->getRelativeX() * (-0.5 + i + jitter(0.5));
-			jitterY = camera->getRelativeY() * (-0.5 + j + jitter(0.5));
+	for(double i = -ANTI_ALIAS_X + 1; i < ANTI_ALIAS_X; i += 1/ANTI_ALIAS_X){
+		for(double j = -ANTI_ALIAS_X + 1; j < ANTI_ALIAS_X; j += 1/ANTI_ALIAS_X){
+			jitterX = camera->getRelativeX() * (-0.25 + i + jitter(1.0/ANTI_ALIAS_X));
+			jitterY = camera->getRelativeY() * (-0.25 + j + jitter(1.0/ANTI_ALIAS_X));
 			ray = camera->castRay(x + jitterX, y + jitterY);
 			color += rayTrace(ray)/(ANTI_ALIAS_X * ANTI_ALIAS_X);
 		}
