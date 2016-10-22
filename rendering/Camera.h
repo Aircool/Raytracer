@@ -1,14 +1,11 @@
 #pragma once
 
-#include <iostream>
 #include "../Constants.h"
 #include "../VectorMath.h"
 
 class Camera {
 
 public:
-
-	bool once = true;
 
 	// Assumes normalized Direction vector input
 	Camera(Vec3 position, Vec3 direction) : position(position), direction(direction) {

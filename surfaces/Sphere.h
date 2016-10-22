@@ -53,14 +53,14 @@ public:
 			
 			Vec3 I = ray.O + (ray.D * t1);
 			Vec3 N = (I - center).normalized();
-			return Intersection(I + (N * 1e-4), N, this->color, t1);
+			return Intersection(I + (N * 1e-2), N, this->color, t1);
 		}
 		
 		if(t2 > 0.0f){
 			
 			Vec3 I = ray.O + (ray.D * t2);
 			Vec3 N = (I - center).normalized();
-			return Intersection(I + (N * 1e-4), N, this->color, t2);
+			return Intersection(I + (N * 1e-2), N, this->color, t2);
 		}
 		
 		return Intersection();

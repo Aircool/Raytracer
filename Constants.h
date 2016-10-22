@@ -7,7 +7,7 @@ const int HEIGHT = 720;
 const bool JITTER = true;
 
 // Camera Constants
-const float FOCAL_LENGTH = 90.0f;
+const float FOCAL_LENGTH = 500.0f;
 
 // Lighting Coefficients
 const float AMBIENT_COEFF = 0.5f;
