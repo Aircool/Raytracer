@@ -32,8 +32,8 @@ Vec3 RayTracer::rayTrace(int x, int y){
 	
 	for(double i = -ANTI_ALIAS_X + 1; i < ANTI_ALIAS_X; i += 1/ANTI_ALIAS_X){
 		for(double j = -ANTI_ALIAS_X + 1; j < ANTI_ALIAS_X; j += 1/ANTI_ALIAS_X){
-			float jitterX i + jitter(1.0/ANTI_ALIAS_X);
-			float jitterY j + jitter(1.0/ANTI_ALIAS_X);
+			float jitterX = i + jitter(1.0/ANTI_ALIAS_X);
+			float jitterY = j + jitter(1.0/ANTI_ALIAS_X);
 			ray = camera->castRay(x + jitterX, y + jitterY);
 			color += rayTrace(ray)/(ANTI_ALIAS_X * ANTI_ALIAS_X);
 		}
