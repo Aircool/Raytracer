@@ -31,6 +31,16 @@ public:
 		return Ray3(position, (point - position).normalized());
 	}
 	
+	Vec3 getRelativeX(){
+		
+		return camera_x;
+	}
+	
+	Vec3 getRelativeY(){
+		
+		return camera_y;
+	}
+	
 private:
 
 	Vec3 position;

@@ -2,7 +2,7 @@
 
 RayTracer::RayTracer(){
 	
-	Vec3 cam_pos = Vec3(0.0f, 0.0f, -100.0f);
+	Vec3 cam_pos = Vec3(0.0f, 0.0f, -70.0f);
 	Vec3 cam_dir = Vec3(0.0f, 0.0f, 1.0f).normalized();
 	camera = new Camera(cam_pos, cam_dir);
 	
@@ -17,8 +17,8 @@ RayTracer::RayTracer(){
 	surfaces.push_back(new Sphere(Vec3(-15, 15, 0), 5.0f, Vec3(0, 0, 255)));
 	surfaces.push_back(new Sphere(Vec3(15, -15, 0), 5.0f, Vec3(0, 0, 255)));
 
-	surfaces.push_back(new Triangle(Vec3(-200, -200, 10), Vec3(200, 200, 10), Vec3(-200, 200, 10), Vec3(255, 255, 0)));
-	surfaces.push_back(new Triangle(Vec3(200, -200, 10), Vec3(200, 200, 10), Vec3(-200, -200, 10), Vec3(255, 255, 0)));
+	surfaces.push_back(new Triangle(Vec3(-200, -200, 10), Vec3(200, 200, 10), Vec3(-200, 200, 10), Vec3(255, 255, 100)));
+	surfaces.push_back(new Triangle(Vec3(200, -200, 10), Vec3(200, 200, 10), Vec3(-200, -200, 10), Vec3(255, 255, 100)));
 	
 	lights.push_back(new Light(Vec3(-0.525, -0.025, -30), Vec3(255, 255, 255), 0.25));
 	lights.push_back(new Light(Vec3(+0.525, -0.025, -30), Vec3(255, 255, 255), 0.25));

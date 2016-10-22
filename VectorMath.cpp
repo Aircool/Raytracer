@@ -1,4 +1,5 @@
 #include "VectorMath.h"
+#include <cstdlib>
 
 Vec3 operator*(float scalar, Vec3 V){
 	
