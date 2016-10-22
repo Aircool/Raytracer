@@ -15,10 +15,7 @@ public:
 
 	Vec3 calculateLighting(std::vector<Surface*>* S, Ray3 R, Intersection I){
 		
-		Vec3 L;
-		
-		if(JITTER)	L = (jitter(1) - I.I);
-		else		L = position - I.I;
+		Vec3 L = position - I.I;
 		
 		float MAX_DIST = (L - I.I).norm();
 		L.normalize();
@@ -50,13 +47,7 @@ private:
 		return false;
 	}
 	
-	Vec3 jitter(float length){
-		
-		float r0 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		float r1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		
-		return Vec3(length * (-0.5 + r0), length * (-0.5 + r1), 0.0) + position;
-	}
+
 	
 	Vec3 position;
 	Vec3 color;
