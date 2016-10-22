@@ -30,7 +30,9 @@ Vec3 RayTracer::rayTrace(int x, int y){
 	
 	Vec3 color;
 	
-	for(float i = -ANTI_ALIAS_X + 1.0f; i < ANTI_ALIAS_X; i+=2.0f){
+	if(ANTI_ALIAS_X > 1){
+		
+		for(float i = -ANTI_ALIAS_X + 1.0f; i < ANTI_ALIAS_X; i+=2.0f){
 		for(float j = -ANTI_ALIAS_X + 1.0f; j < ANTI_ALIAS_X; j+=2.0f){
 			
 			Vec3 jitterVal = jitter(1.0f/ANTI_ALIAS_X);
@@ -40,9 +42,17 @@ Vec3 RayTracer::rayTrace(int x, int y){
 			Ray3 ray = camera->castRay(x + jitterX, y + jitterY);
 			color += rayTrace(ray);
 		}
+		}
+		
+		color /= (ANTI_ALIAS_X * ANTI_ALIAS_X);
 	}
-
-	color /= 4.0f;
+	
+	else {
+		
+		Ray3 ray = camera->castRay(x, y);
+		color += rayTrace(ray);
+	}
+	
 	return color;
 }
 
