@@ -27,7 +27,7 @@ public:
 	Vec3 calculateLighting(std::vector<Surface*>* S, Ray3 R, Intersection I){
 		
 		Vec3 L = position - I.I;
-		if(JITTERED_LIGHTING){
+		if(ENABLE_AREA_LIGHTING){
 			
 			Vec3 jitterVal = jitter(1.0f);
 			L = position + (light_x * jitterVal[0]) + (light_y * jitterVal[1]) - I.I; 
