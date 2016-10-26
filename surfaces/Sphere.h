@@ -9,6 +9,7 @@ class Sphere : public Surface {
 public:
 
 	Sphere(Vec3 center, float radius, Vec3 color) : center(center), radius(radius), Surface(color) {}
+	Sphere(Vec3 center, float radius, Vec3 color, float reflect, float refract) : center(center), radius(radius), Surface(color, reflect, refract) {}
 
 	Intersection intersect(Ray3 ray){
 		
@@ -53,14 +54,14 @@ public:
 			
 			Vec3 I = ray.O + (ray.D * t1);
 			Vec3 N = (I - center).normalized();
-			return Intersection(I + (N * 1e-2), N, this->color, t1);
+			return Intersection(I + (N * 1e-1), N, this->color, t1, this->reflect, this->refract);
 		}
 		
 		if(t2 > 0.0f){
 			
 			Vec3 I = ray.O + (ray.D * t2);
 			Vec3 N = (I - center).normalized();
-			return Intersection(I + (N * 1e-2), N, this->color, t2);
+			return Intersection(I + (N * 1e-2), N, this->color, t2, this->reflect, this->refract);
 		}
 		
 		return Intersection();

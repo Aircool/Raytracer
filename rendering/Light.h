@@ -40,7 +40,7 @@ public:
 		if(intersect(S, LRay, MAX_DIST)) return Vec3();
 		
 		float diffuse = L.dot(I.N);
-		float specular = L.reflect(I.N).dot(R.D * -1.0f);
+		float specular = L.reflect(I.N).dot(R.D);
 		
 		Vec3 C = Vec3();
 		if(diffuse  > 1e-4) C += color * intensity * diffuse * DIFFUSE_COEFF;

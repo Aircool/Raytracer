@@ -5,7 +5,7 @@ const int HEIGHT = 720;
 
 // RayTracing Options
 const bool ENABLE_AREA_LIGHTING = true;
-const bool ENABLE_REFLECTION = false;
+const bool ENABLE_REFLECTION = true;
 const bool ENABLE_REFRACTION = false;
 
 // Camera Constants
