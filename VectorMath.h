@@ -121,7 +121,7 @@ public:
 	
 	Vec3 reflect(Vec3 N){
 		
-		return (N * 2.0f) * (N.dot(*this)) - *this;
+		return ((N * 2.0f) * (N.dot(*this)) - *this) * -1.0f;
 	}
 
 private:

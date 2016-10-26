@@ -6,7 +6,7 @@ RayTracer::RayTracer(){
 	Vec3 cam_dir = Vec3(0.0f, 0.0f, 1.0f).normalized();
 	camera = new Camera(cam_pos, cam_dir);
 	
-	surfaces.push_back(new Sphere(Vec3(0, 0, 0), 5.0f, Vec3(255, 0, 0)));
+	surfaces.push_back(new Sphere(Vec3(0, 0, 0), 7.5f, Vec3(212, 225, 236), 1.0f, 0.0f));
 	surfaces.push_back(new Sphere(Vec3(0, -15, 0), 5.0f, Vec3(0, 255, 0)));
 	surfaces.push_back(new Sphere(Vec3(0, 15, 0), 5.0f, Vec3(0, 255, 0)));
 	surfaces.push_back(new Sphere(Vec3(-15, 0, 0), 5.0f, Vec3(0, 255, 0)));
@@ -17,13 +17,13 @@ RayTracer::RayTracer(){
 	surfaces.push_back(new Sphere(Vec3(-15, 15, 0), 5.0f, Vec3(0, 0, 255)));
 	surfaces.push_back(new Sphere(Vec3(15, -15, 0), 5.0f, Vec3(0, 0, 255)));
 
-	surfaces.push_back(new Triangle(Vec3(-200, -200, 10), Vec3(200, 200, 10), Vec3(-200, 200, 10), Vec3(255, 255, 100)));
-	surfaces.push_back(new Triangle(Vec3(200, -200, 10), Vec3(200, 200, 10), Vec3(-200, -200, 10), Vec3(255, 255, 100)));
+	surfaces.push_back(new Triangle(Vec3(-400, -400, 50), Vec3(400, 400, 50), Vec3(-400, 400, 50), Vec3(255, 255, 100)));
+	surfaces.push_back(new Triangle(Vec3(400, -400, 50), Vec3(400, 400, 50), Vec3(-400, -400, 50), Vec3(255, 255, 100)));
 	
-	lights.push_back(new Light(Vec3(-10.50, 49.00, -30), Vec3(0.15, -0.30, 0.40).normalized(), Vec3(255, 255, 255), 0.25));
-	lights.push_back(new Light(Vec3(-10.00, 49.00, -30), Vec3(0.15, -0.30, 0.40).normalized(), Vec3(255, 255, 255), 0.25));
-	lights.push_back(new Light(Vec3(-10.50, 49.1, -30), Vec3(0.15, -0.30, 0.40).normalized(), Vec3(255, 255, 255), 0.25));
-	lights.push_back(new Light(Vec3(-10.00, 49.1, -30), Vec3(0.15, -0.30, 0.40).normalized(), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(-10, -10, -30), Vec3(10, 10, 80).normalized(), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(-10, +10, -30), Vec3(10, -10, 80).normalized(), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(+10, -10, -30), Vec3(-10, 10, 80).normalized(), Vec3(255, 255, 255), 0.25));
+	lights.push_back(new Light(Vec3(+10, +10, -30), Vec3(-10, -10, 80).normalized(), Vec3(255, 255, 255), 0.25));
 }
 
 Vec3 RayTracer::rayTrace(int x, int y){
@@ -41,6 +41,7 @@ Vec3 RayTracer::rayTrace(int x, int y){
 			
 			Ray3 ray = camera->castRay(x + jitterX, y + jitterY);
 			color += rayTrace(ray);
+			reflectionDepth = 0;
 		}
 		}
 		
@@ -51,6 +52,7 @@ Vec3 RayTracer::rayTrace(int x, int y){
 		
 		Ray3 ray = camera->castRay(x, y);
 		color += rayTrace(ray);
+		reflectionDepth = 0;
 	}
 	
 	return color;
@@ -58,15 +60,30 @@ Vec3 RayTracer::rayTrace(int x, int y){
 
 Vec3 RayTracer::rayTrace(Ray3 ray){
 	
-	Vec3 color(0.0f, 0.0f, 0.0f);
-	
 	Intersection intersection = intersect(ray);
 	if(intersection.T > 0.0f){
 		
-		color += calculateColor(ray, intersection);
+		bool DO_REFLECT = ENABLE_REFLECTION * (reflectionDepth++ < 3);
+		bool DO_REFRACT = ENABLE_REFRACTION * (refractionDepth++ < 3);
+		float originalColor = 1.0f - (DO_REFLECT * intersection.reflect) - (DO_REFRACT * intersection.refract);
+		
+		Vec3 color = intersection.C * originalColor;
+		
+		if(DO_REFLECT && intersection.reflect > 0.0f){
+			
+			color += rayTrace(Ray3(intersection.I, ray.D.reflect(intersection.N))) * intersection.reflect;
+		}
+		
+		if(DO_REFRACT && intersection.refract > 0.0f){
+			
+			// Insert Refraction Logic.
+		}
+		
+		intersection.C = color;
+		return calculateColor(ray, intersection);
 	}
 	
-	return color;
+	return Vec3();
 }
 
 Intersection RayTracer::intersect(Ray3 ray){
