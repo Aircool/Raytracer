@@ -31,6 +31,5 @@ private:
 	std::vector<Surface*> surfaces;
 	std::vector<Light*> lights;
 	
-	int reflectionDepth = 0;
-	int refractionDepth = 0;
+	int depth = 0;
 };

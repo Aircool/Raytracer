@@ -63,8 +63,9 @@ Vec3 RayTracer::rayTrace(Ray3 ray){
 	Intersection intersection = intersect(ray);
 	if(intersection.T > 0.0f){
 		
-		bool DO_REFLECT = ENABLE_REFLECTION * (reflectionDepth++ < 3);
-		bool DO_REFRACT = ENABLE_REFRACTION * (refractionDepth++ < 3);
+		depth++;
+		bool DO_REFLECT = ENABLE_REFLECTION * (depth < 5);
+		bool DO_REFRACT = ENABLE_REFRACTION * (depth < 5);
 		float originalColor = 1.0f - (DO_REFLECT * intersection.reflect) - (DO_REFRACT * intersection.refract);
 		
 		Vec3 color = intersection.C * originalColor;
