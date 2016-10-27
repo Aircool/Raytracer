@@ -23,7 +23,7 @@ public:
 			float T = (p0 - ray.O).dot(normal) / angle;
 			if(T > 1e-4){
 				
-				Vec3 I = (ray.O) + (ray.D * T);
+				Vec3 I = ray.pointAt(T);
 				
 				float alpha	= area(I, p1, p2) / totalArea;
 				float beta	= area(I, p0, p2) / totalArea;
@@ -35,7 +35,7 @@ public:
 				
 				if(1.0f - alpha - beta - gamma > -1e-4){
 					
-					return Intersection(I, normal, this->color, T);
+					return Intersection(I + (normal * 1e-2), normal, this->color, T);
 				}
 			}
 		}

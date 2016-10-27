@@ -9,6 +9,7 @@
 #include "surfaces/Intersection.h"
 #include "surfaces/Sphere.h"
 #include "surfaces/Triangle.h"
+#include "surfaces/Plane.h"
 
 #include "Constants.h"
 #include "VectorMath.h"
