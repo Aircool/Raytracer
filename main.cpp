@@ -1,4 +1,5 @@
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_thread.h"
 
 #include "Constants.h"
 #include "VectorMath.h"
@@ -9,7 +10,7 @@ SDL_Renderer* renderer;
 
 RayTracer* RT;
 
-void render(){
+int render(void* ptr){
 	
 	for(int y = 0; y < HEIGHT; ++y){
 		for(int x = 0; x < WIDTH; ++x){
@@ -22,17 +23,19 @@ void render(){
 		
 		if(y % 10 == 9) SDL_RenderPresent(renderer);
 	}
+	
+	return 0;
 }
 
 int main(int argc, char* argv[]){
 	
 	SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer);
-	
 	RT = new RayTracer();
-	render();
+	
+	SDL_Thread* thread = SDL_CreateThread(render, "Render", (void *)NULL);
+	SDL_DetachThread(thread);
 	
 	SDL_Event event;
-	
 	while(1){
 		
 		SDL_WaitEvent(&event);
