@@ -17,8 +17,10 @@ RayTracer::RayTracer(){
 	surfaces.push_back(new Sphere(Vec3(-15, 15, 0), 5.0f, Vec3(0, 0, 255)));
 	surfaces.push_back(new Sphere(Vec3(15, -15, 0), 5.0f, Vec3(0, 0, 255)));
 
-	surfaces.push_back(new Triangle(Vec3(-400, -400, 50), Vec3(400, 400, 50), Vec3(-400, 400, 50), Vec3(255, 255, 100)));
-	surfaces.push_back(new Triangle(Vec3(400, -400, 50), Vec3(400, 400, 50), Vec3(-400, -400, 50), Vec3(255, 255, 100)));
+	surfaces.push_back(new Plane(Vec3(0, -50, 0), Vec3(0, 1, 0))); 
+	
+	//surfaces.push_back(new Triangle(Vec3(-400, -400, 50), Vec3(400, 400, 50), Vec3(-400, 400, 50), Vec3(255, 255, 100)));
+	//surfaces.push_back(new Triangle(Vec3(400, -400, 50), Vec3(400, 400, 50), Vec3(-400, -400, 50), Vec3(255, 255, 100)));
 	
 	lights.push_back(new Light(Vec3(-10, -10, -30), Vec3(10, 10, 80).normalized(), Vec3(255, 255, 255), 0.25));
 	lights.push_back(new Light(Vec3(-10, +10, -30), Vec3(10, -10, 80).normalized(), Vec3(255, 255, 255), 0.25));
@@ -41,7 +43,7 @@ Vec3 RayTracer::rayTrace(int x, int y){
 			
 			Ray3 ray = camera->castRay(x + jitterX, y + jitterY);
 			color += rayTrace(ray);
-			reflectionDepth = 0;
+			depth = 0;
 		}
 		}
 		
@@ -52,7 +54,7 @@ Vec3 RayTracer::rayTrace(int x, int y){
 		
 		Ray3 ray = camera->castRay(x, y);
 		color += rayTrace(ray);
-		reflectionDepth = 0;
+		depth = 0;
 	}
 	
 	return color;

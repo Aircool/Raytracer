@@ -10,7 +10,7 @@ public:
 
 	Plane(Vec3 point, Vec3 normal, Vec3 color) : point(point), normal(normal), color(color) {}
 	
-	Plane(Vec3 point, Vec3 normal, bool checkerBoard) : point(point), normal(normal), checkerBoard(checkerBoard) {
+	Plane(Vec3 point, Vec3 normal) : point(point), normal(normal), checkerBoard(1) {
 		
 		Vec3 up(0.0f, 1.0f, 0.0f);
 		if(normal[0] == up[0] && normal[1] == up[1] && normal[2] == up[2]) up = Vec3(0, 0, -1.0f);
@@ -31,19 +31,20 @@ public:
 			float T = (point - ray.O).dot(normal) / angle;
 			if(T > 1e-4){
 				
-				if(!checkerBoard) return Intersection(ray.pointAt(T) + (1e-2 * normal), normal, color, T);
+				if(!checkerBoard) return Intersection(ray.pointAt(T) + (normal * 1e-2), normal, color, T);
 				else {
 					
 					Vec3 offsetFromPoint = (ray.pointAt(T) - point);
 					
-					float tX = offsetFromPoint.dot(plane_x).norm();
-					float tY = offsetFromPoint.dot(plane_y).norm();
+					float tX = offsetFromPoint.dot(plane_x) / 100.0f;
+					float tY = offsetFromPoint.dot(plane_y) / 100.0f;
+					bool white = (((int) tX) + ((int) tY)) % 2;
 					
-					int colorX = ((int) tX) / 5;
-					int colorY = ((int) tY) / 5;
+					if(tX * tY == 0.0f) white = 0;
+					if(tX * tY < 0.0f) white = !white;
+					
+					return Intersection(ray.pointAt(T) + (normal * 1e-2), normal, Vec3(255 * white, 255 * white, 255 * white), T);
 				}
-				
-				return Intersection()
 			}
 		}
 		
