@@ -52,14 +52,14 @@ public:
 		
 		if(t1 > 0.0f){
 			
-			Vec3 I = ray.O + (ray.D * t1);
+			Vec3 I = ray.pointAt(t1);
 			Vec3 N = (I - center).normalized();
-			return Intersection(I + (N * 1e-1), N, this->color, t1, this->reflect, this->refract);
+			return Intersection(I + (N * 1e-2), N, this->color, t1, this->reflect, this->refract);
 		}
 		
 		if(t2 > 0.0f){
 			
-			Vec3 I = ray.O + (ray.D * t2);
+			Vec3 I = ray.pointAt(t2);
 			Vec3 N = (I - center).normalized();
 			return Intersection(I + (N * 1e-2), N, this->color, t2, this->reflect, this->refract);
 		}
