@@ -1,0 +1,1 @@
+g++ -std=c++11 *.cpp -o RT.exe -lmingw32 -lSDL2main -lSDL2
